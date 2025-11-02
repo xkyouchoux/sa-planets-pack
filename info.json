@@ -6,30 +6,29 @@
   "description": "Pack with some planets",
   "dependencies": [
     "base >= 2.0.0",
-    "corrundum",
     "planet-muluna",
-    "metal-and-stars",
+    "corrundum",
     "rubia",
-    "skewer_planet_vesta",
-    "Cerys-Moon-of-Fulgora",
-    "maraxsis",
     "Moshine",
+    "Cerys-Moon-of-Fulgora",
+    "skewer_planet_vesta",
+    "maraxsis",
     "Paracelsin",
+    "metal-and-stars",
 
     "AsteroidBelt",
+    "Better-Planets",
     "Better_Starmap_Background",
     "redrawn-space-compat-fixes",
-    "Cosmic-Social-Distancing",
-    "? vp-scale",
-    "? visible-planets",
+    "vp-scale",
 
     "Age-of-Production",
     "atan-nuclear-science",
     "aai-loaders-sane",
 
-    "? Assembler-Reskin",
-    "? RateCalculator",
-    "? ChangeInserterDropLane"
+    "Assembler-Reskin",
+    "RateCalculator",
+    "ChangeInserterDropLane"
   ],
   "space_travel_reuired": true,
   "factorio_version": "2.0"

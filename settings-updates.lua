@@ -1,0 +1,14 @@
+-- nauvis angle
+-- fulgora radius
+-- fulgora angle
+-- gleba radius
+-- gleba angle
+-- rubia radius
+-- rubia angle
+-- vesta angle
+-- corrundum radius
+-- maraxsis radius
+-- maraxsis angle
+-- cal-sen gate radius
+-- cal-sen gate angle
+
