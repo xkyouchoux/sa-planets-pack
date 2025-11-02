@@ -1,0 +1,10 @@
+{
+    "Lua.diagnostics.globals": [
+        "assembling_machine_circuit_wire_max_distance",
+        "circuit_connector_definitions",
+        "pipecoverspictures",
+        "se_delivery_cannon_recipes",
+        "robot_reflection",
+        "universal_connector_template"
+    ]
+}

@@ -1,0 +1,35 @@
+{
+  "name": "sa-planets-pack",
+  "version": "0.0.1",
+  "title": "SA Planets Pack",
+  "author": "xkyouchoux",
+  "description": "Pack with some planets",
+  "dependencies": [
+    "base >= 2.0.0",
+    "corrundum",
+    "planet-muluna",
+    "metal-and-stars",
+    "rubia",
+    "skewer_planet_vesta",
+    "Cerys-Moon-of-Fulgora",
+    "maraxsis",
+    "Moshine",
+    "Paracelsin",
+
+    "AsteroidBelt",
+    "Better_Starmap_Background",
+    "redrawn-space-compat-fixes",
+    "Cosmic-Social-Distancing",
+    "? vp-scale",
+    "? visible-planets",
+
+    "Age-of-Production",
+    "atan-nuclear-science",
+    "aai-loaders-sane",
+
+    "? RateCalculator",
+    "? ChangeInserterDropLane"
+  ],
+  "space_travel_reuired": true,
+  "factorio_version": "2.0"
+}
