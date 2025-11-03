@@ -9,9 +9,12 @@ data.raw["double-setting"]["tr-angle-vesta"].default_value = 185
 data.raw["double-setting"]["tr-radius-corrundum"].default_value = 29
 data.raw["double-setting"]["tr-radius-maraxsis"].default_value = 45
 data.raw["double-setting"]["tr-angle-maraxsis"].default_value = 315
-data.raw["double-setting"]["tr-radius-calidus-senestella-gate-calidus"].default_value = 26
-data.raw["double-setting"]["tr-angle-calidus-senestella-gate-calidus"].default_value = 0
-data.raw["double-setting"]["tr-radius-redstar"].default_value = 150
+
+if mods["metal-and-stars"] then
+    data.raw["double-setting"]["tr-radius-calidus-senestella-gate-calidus"].default_value = 26
+    data.raw["double-setting"]["tr-angle-calidus-senestella-gate-calidus"].default_value = 0
+    data.raw["double-setting"]["tr-radius-redstar"].default_value = 150
+end
 
 data.raw["bool-setting"]["asteroid-belt-2-enabled"].default_value = true
 
