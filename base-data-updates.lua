@@ -1,0 +1,74 @@
+local data_util = require("__sa-planets-pack__.data_util")
+
+if settings.startup["spp-rubia-disable-efficiency-module-4"].value then
+    data.raw["item"]["rubia-efficiency-module4"] = nil
+    data.raw["recipe"]["rubia-efficiency-module4"] = nil
+    data.raw["technology"]["rubia-efficiency-module4"] = nil
+end
+
+if settings.startup["spp-aai-loader-stacking"].value then
+    for _,loader in pairs(data.raw["loader-1x1"]) do
+        if loader.name:find("aai-") then
+            loader.adjustable_belt_stack_size = true
+            loader.wait_for_full_stack = true
+            loader.max_belt_stack_size = data.raw["utility-constants"]["default"].max_belt_stack_size
+        end
+    end
+end
+
+for _,v in pairs({
+    "storage-tank", "fluid-tank-1x1", "fluid-tank-2x2",
+    "fluid-tank-3x4", "fluid-tank-5x5", "pipe", "pipe-to-ground",
+    "diesel-pump", "pump"
+}) do
+    data.raw["item"][v].subgroup = "pipe"
+end
+
+data.raw["item"]["pump"].order = "d"
+data.raw["item"]["diesel-pump"].order = "d"
+
+for _,v in pairs({
+    "casting-pipe", "casting-pipe-to-ground"
+}) do
+    data.raw["recipe"][v].subgroup = "pipe"
+end
+
+local science_packs = {
+    ["automation-science-pack"] = "a-a",
+    ["logistic-science-pack"] = "a-b",
+    ["military-science-pack"] = "a-c",
+    ["chemical-science-pack"] = "a-d",
+    ["nuclear-science-pack"] = "a-e",
+    ["production-science-pack"] = "a-f",
+    ["utility-science-pack"] = "a-g",
+    ["space-science-pack"] = "a-h",
+    ["metallurgic-science-pack"] = "b-a",
+    ["agricultural-science-pack"] = "b-b",
+    ["electromagnetic-science-pack"] = "b-c",
+    ["biorecycling-science-pack"] = "b-d",
+    ["rubia-biofusion-science-pack"] = "b-e",
+    ["electrochemical-science-pack"] = "b-f",
+    ["pelagos-science-pack"] = "b-g",
+    ["interstellar-science-pack"] = "b-h",
+    ["cryogenic-science-pack"] = "c-a",
+    ["hydraulic-science-pack"] = "c-b",
+    ["galvanization-science-pack"] = "c-c",
+    ["gas-manipulation-science-pack"] = "c-d",
+    ["golden-science-pack"] = "c-e",
+    ["promethium-science-pack"] = "d-a",
+    ["cerysian-science-pack"] = "z-a",
+}
+
+for k,v in pairs(science_packs) do
+    local tool = data.raw["tool"][k]
+    if tool then
+        tool.order = v
+    end
+end
+
+data.raw["recipe"]["electrochemical-science-pack"].subgroup = "science-pack"
+data.raw["recipe"]["electrochemical-science-pack"].order = data.raw["tool"]["electrochemical-science-pack"].order
+
+data.raw["recipe"]["rubia-bio-utility-science-pack"].order = data.raw["tool"]["utility-science-pack"].order .. "-2"
+data.raw["recipe"]["gas-manipulation-science-pack"].order = data.raw["tool"]["gas-manipulation-science-pack"].order
+data.raw["recipe"]["cerys-space-science-pack-from-methane-ice"].order = data.raw["tool"]["space-science-pack"].order .. "-3"

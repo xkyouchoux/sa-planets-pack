@@ -22,6 +22,23 @@ function Util.conditional_modify(params)
     end
 end
 
+function Util.recipe_replace_ingredient_sub(recipe, from, to, amount, is_fluid)
+    local type = is_fluid and "fluid" or "item"
+    for _,v in pairs(recipe.ingredients) do
+        if v.type == type and v.name == from then
+            v.name = to
+            if amount then
+                v.amount = amount
+            end
+        end
+    end
+end
+
+function Util.recipe_replace_ingredient(recipe_name, from, to, amount, is_fluid)
+    local recipe = data.raw["recipe"][recipe_name]
+    Util.recipe_replace_ingredient_sub(recipe, from, to, amount, is_fluid)
+end
+
 function Util.tech_remove_prerequisites(tech_name, prerequisites)
     local tech = data.raw["technology"][tech_name]
     if tech and tech.prerequisites then
@@ -75,12 +92,17 @@ function Util.tech_has_effect(tech_name, effect_stub)
     return tech and Util.tech_has_effect_sub(tech, effect_stub)
 end
 
+function Util.tech_has_ingredient_sub(tech, ingredient_name)
+    for _,ingredient in pairs(tech.unit.ingredients) do
+        if ingredient[1] == ingredient_name then return true end
+    end
+    return false
+end
+
 function Util.tech_has_ingredient(tech_name, ingredient_name)
     local tech = data.raw["technology"][tech_name]
     if tech and tech.unit and tech.unit.ingredients then
-        for _,ingredient in pairs(tech.unit.ingredients) do
-            if ingredient[1] == ingredient_name then return true end
-        end
+        return Util.tech_has_ingredient_sub(tech, ingredient_name)
     end
     return false
 end
@@ -104,7 +126,7 @@ end
 
 function Util.tech_add_ingredients_sub(tech, ingredients)
     for _,name in pairs(ingredients) do
-        if not Util.table_contains(tech.unit.ingredients, {name, 1}) then
+        if not Util.tech_has_ingredient_sub(tech, name) then
             table.insert(tech.unit.ingredients, {name, 1})
         end
     end

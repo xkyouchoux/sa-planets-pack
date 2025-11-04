@@ -5,8 +5,16 @@ local data_util = require("__sa-planets-pack__.data_util")
 if settings.startup["spp-rubia-disable-tech-hiding"].value then 
     local rubia_unknown_techs = {}
     for name,tech in pairs(data.raw["technology"]) do
-        if string.find(name, "rubia%-unknown%-technology%-") == 1 then
+        if string.find(name, "rubia%-unknown%-technology%-") then
             table.insert(rubia_unknown_techs, name)
+        end
+        if tech.prerequisites then
+            for i = #tech.prerequisites, 1, -1 do
+                local prerequisite = tech.prerequisites[i]
+                if prerequisite and prerequisite:find("rubia%-unknown%-technology%-") then
+                    tech.prerequisites[i] = nil
+                end
+            end
         end
     end
     
@@ -39,12 +47,25 @@ for _,v in pairs({
     data_util.tech_add_prerequisites(v, {"space-discovery-asteroid-belt"})
 end
 
--- golden science pack
+-- secretas
+
+data_util.tech_add_ingredients("planet-discovery-secretas", {"galvanization-science-pack"})
+data_util.tech_add_prerequisites("planet-discovery-secretas", {"railgun"})
 
 data_util.tech_add_prerequisites("golden-science-pack", {"steam-recycler"})
 
+data.raw["technology"]["steam-recycler"].icon = data.raw["technology"]["steam-recycler"].icons[1].icon
+data.raw["technology"]["steam-recycler"].icons = nil
+
+data.raw["technology"]["golden-science-pack"].icon = data.raw["technology"]["golden-science-pack"].icons[1].icon
+data.raw["technology"]["golden-science-pack"].icons = nil
+
+data.raw["technology"]["hyper-inserter"].icon = data.raw["technology"]["hyper-inserter"].icons[1].icon
+data.raw["technology"]["hyper-inserter"].icons = nil
+
 for _,v in pairs({
     "aop-electromechanics",
+    "aop-advanced-recycling",
     "gold-heat-pipe",
     "gold-plate-productivity",
     "gold-railgun-turret",
@@ -76,37 +97,45 @@ for _,tech in pairs(data.raw["technology"]) do
     end
 end
 
+-- aop
 
--- science pack productivity
-
-data_util.tech_remove_effects("science-pack-productivity", {
-    {
-        type = "change-recipe-productivity",
-        recipe = "promethium-science-pack"
-    }
-})
-
-local function science_productivity(pack)
-    return {
-        type = "change-recipe-productivity",
-        recipe = pack,
-        change = .01
-    }
+for _,v in pairs({
+    "aop-core-mining",
+    "aop-quantum-machinery",
+    "aop-core-mining-productivity",
+    "aop-deep-mineral-refining-productivity"
+}) do
+    data_util.tech_add_ingredients(v, {
+        "galvanization-science-pack",
+        "hydraulic-science-pack"
+    })
 end
 
-data_util.tech_add_effects("science-pack-productivity", {
-    science_productivity("rubia-bio-utility-science-pack"),
-    science_productivity("space-science-pack-muluna"),
-    science_productivity("cerys-space-science-pack-from-methane-ice"),
-    science_productivity("rubia-biofusion-science-pack"),
-    science_productivity("maraxsis-deepsea-research-automation-science-pack"),
-    science_productivity("maraxsis-deepsea-research-logistic-science-pack"),
-    science_productivity("maraxsis-deepsea-research-military-science-pack"),
-    science_productivity("maraxsis-deepsea-research-chemical-science-pack"),
-    science_productivity("maraxsis-deepsea-research-production-science-pack"),
-    science_productivity("maraxsis-deepsea-research-utility-science-pack"),
-    science_productivity("aop-hydraulics-specialized-cryogenic-science-pack"),
-    science_productivity("aop-military-specialized-metallurgic-science-pack"),
-    science_productivity("aop-hybridation-specialized-agricultural-science-pack"),
-    science_productivity("aop-petrochemistry-specialized-electromagnetic-science-pack"),
+-- productivity techs
+
+data.raw["technology"]["science-pack-productivity"] = nil
+
+data_util.tech_add_prerequisites("research-speed-infinite", {
+    "electrochemical-science-pack",
+})
+
+data_util.tech_add_ingredients("research-productivity", {
+    "electrochemical-science-pack",
+    "pelagos-science-pack",
+    "golden-science-pack",
+    "gas-manipulation-science-pack"
+})
+
+data_util.tech_add_prerequisites("research-productivity", {
+    "electrochemical-science-pack",
+    "pelagos-science-pack",
+    "s1_gas_manipulation_science_pack",
+    "golden-science-pack"
+})
+
+data_util.tech_add_prerequisites("muluna-space-telescope", {
+    "electrochemical-science-pack",
+    "pelagos-science-pack",
+    "s1_gas_manipulation_science_pack",
+    "golden-science-pack"
 })

@@ -1,5 +1,7 @@
 require("prototypes.technology-final-fixes")
 
+data.raw["tool"]["electrochemical-science-pack"].order = "b-f"
+
 local asteroid_stream = require("__Better-Planets__.scripts.asteroid-streams")
 
 asteroid_stream.copy_many({
