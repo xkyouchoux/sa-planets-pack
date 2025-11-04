@@ -66,9 +66,45 @@ for k,v in pairs(science_packs) do
     end
 end
 
+for _,v in pairs({
+    "fluid-tank-1x1",
+    "fluid-tank-2x2",
+    "fluid-tank-3x4",
+    "fluid-tank-5x5",
+}) do
+    data.raw["item"][v].category = "maraxsis-hydro-plant-or-assembling"
+end
+
 data.raw["recipe"]["electrochemical-science-pack"].subgroup = "science-pack"
 data.raw["recipe"]["electrochemical-science-pack"].order = data.raw["tool"]["electrochemical-science-pack"].order
 
 data.raw["recipe"]["rubia-bio-utility-science-pack"].order = data.raw["tool"]["utility-science-pack"].order .. "-2"
 data.raw["recipe"]["gas-manipulation-science-pack"].order = data.raw["tool"]["gas-manipulation-science-pack"].order
 data.raw["recipe"]["cerys-space-science-pack-from-methane-ice"].order = data.raw["tool"]["space-science-pack"].order .. "-3"
+
+for _,recipe in pairs({
+    "diesel-inserter",
+    "fast-diesel-inserter",
+    "rubia-long-bulk-inserter",
+    "crane-bulk-diesel-inserter",
+    "crane-stack-diesel-inserter",
+    "hyper-inserter",
+    "rubia-long-stack-inserter",
+    "cerys-radiation-proof-inserter",
+    "fluid-tank-1x1",
+    "fluid-tank-2x2",
+    "fluid-tank-3x4",
+    "fluid-tank-5x5",
+    "diesel-pump",
+    "duct-small",
+    "duct-underground",
+    "duct-t-junction",
+    "duct-curve",
+    "duct-cross",
+    "non-return-duct",
+    "duct-intake",
+    "duct-exhaust",
+    "maraxsis-trench-duct"
+}) do
+    data_util.recipe_add_additional_categories(recipe, {"mechanics"})
+end

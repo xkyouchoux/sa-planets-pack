@@ -167,4 +167,14 @@ function Util.tech_add_ingredients(tech_name, ingredients)
     end
 end
 
+function Util.recipe_add_additional_categories(recipe_name, categories)
+    local recipe = data.raw["recipe"][recipe_name]
+    if recipe and categories then
+        if not recipe.additional_categories then recipe.additional_categories = {} end
+        for _,v in pairs(categories) do
+            table.insert(recipe.additional_categories, v)
+        end
+    end
+end
+
 return Util
