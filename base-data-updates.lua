@@ -1,7 +1,7 @@
 local data_util = require("__sa-planets-pack__.data_util")
 
 if settings.startup["spp-rubia-disable-efficiency-module-4"].value then
-    data.raw["item"]["rubia-efficiency-module4"] = nil
+    data.raw["module"]["rubia-efficiency-module4"] = nil
     data.raw["recipe"]["rubia-efficiency-module4"] = nil
     data.raw["technology"]["rubia-efficiency-module4"] = nil
 end
@@ -14,6 +14,32 @@ if settings.startup["spp-aai-loader-stacking"].value then
             loader.max_belt_stack_size = data.raw["utility-constants"]["default"].max_belt_stack_size
         end
     end
+end
+
+data.raw["item"]["ice-box"].subgroup = "container-1"
+data.raw["item"]["ice-box"].order = "z[items]-c[ice-box]"
+
+data.raw["item"]["aai-loader"].subgroup = "belt"
+data.raw["item"]["aai-fast-loader"].subgroup = "belt"
+data.raw["item"]["aai-express-loader"].subgroup = "belt"
+data.raw["item"]["aai-turbo-loader"].subgroup = "belt"
+
+data.raw["item-with-entity-data"]["ironclad"].subgroup = "water_transport"
+
+data.raw["recipe"]["rail-minimal"].category = "electromechanics-or-crafting"
+data.raw["recipe"]["rail-ramp-minimal"].category = "electromechanics-or-crafting"
+data.raw["recipe"]["muluna-rocket-buggy"].category = "electromechanics-or-crafting"
+data.raw["recipe"]["long-range-delivery-drone-depot"].category = "electromechanics-or-crafting"
+data.raw["recipe"]["long-range-delivery-drone-request-depot"].category = "electromechanics-or-crafting"
+
+for _,v in pairs({
+    "long-range-delivery-drone",
+    "rubia-armored-locomotive",
+    "rubia-armored-cargo-wagon",
+    "rubia-armored-fluid-wagon",
+    ""
+}) do
+    data_util.recipe_add_additional_categories(v, {"electromechanics"})
 end
 
 for _,v in pairs({
@@ -107,4 +133,30 @@ for _,recipe in pairs({
     "maraxsis-trench-duct"
 }) do
     data_util.recipe_add_additional_categories(recipe, {"mechanics"})
+end
+
+for _,recipe in pairs({
+    "maraxsis-fish-food",
+    "maraxsis-microplastics",
+    "coconut-processing",
+    "fermentation-bacteria-cultivation",
+    "nutrients-from-coconut-meat",
+    "maraxsis-nutrients-from-tropical-fish",
+    "rubia-bio-utility-science-pack",
+    "pelagos-science-pack",
+    "rubia-biofusion-promethium-science-pack",
+    "calcium-sulfate-bioflux",
+    "calcium-sulfate-egg",
+    "calcium-sulfate-fish",
+    "fermented-fish",
+}) do
+    data_util.recipe_add_additional_categories(recipe, {"biochemistry"})
+end
+
+for _,recipe in pairs({
+    "wooden-platform",
+    "coconut-husk-spoiling",
+    "wood-spoiling",
+}) do
+    data_util.recipe_add_additional_categories(recipe, {"woodworking"})
 end
