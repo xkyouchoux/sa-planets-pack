@@ -124,32 +124,8 @@ data:extend({
     },
     {
         type = "item-subgroup",
-        name = "speed-module",
+        name = "module",
         order = "l-a",
-        group = "production",
-    },
-    {
-        type = "item-subgroup",
-        name = "efficiency-module",
-        order = "l-b",
-        group = "production",
-    },
-    {
-        type = "item-subgroup",
-        name = "productivity-module",
-        order = "l-c",
-        group = "production",
-    },
-    {
-        type = "item-subgroup",
-        name = "degradation-module",
-        order = "l-d",
-        group = "production",
-    },
-    {
-        type = "item-subgroup",
-        name = "quality-module",
-        order = "l-e",
         group = "production",
     },
 })
