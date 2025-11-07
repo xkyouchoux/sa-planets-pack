@@ -139,3 +139,19 @@ data_util.tech_add_prerequisites("muluna-space-telescope", {
     "s1_gas_manipulation_science_pack",
     "golden-science-pack"
 })
+
+data.raw["technology"]["gold-railgun-turret"] = nil
+
+local function remove_aop_tech(tech_name)
+    for _,effect in pairs(data.raw["technology"][tech_name].effects) do
+        if effect.type == "unlock-recipe" and effect.recipe then
+            data.raw["recipe"][effect.recipe] = nil
+        end
+    end
+    data.raw["technology"][tech_name] = nil
+end
+
+remove_aop_tech("aop-atomic-enricher")
+remove_aop_tech("aop-greenhouse")
+remove_aop_tech("aop-agriculture-productivity")
+remove_aop_tech("aop-smeltery")

@@ -26,3 +26,7 @@ asteroid_stream.copy_many({
         }
     }
 })
+
+for _,recipe in pairs(data.raw["recipe"]) do
+    recipe.always_show_made_in = true
+end

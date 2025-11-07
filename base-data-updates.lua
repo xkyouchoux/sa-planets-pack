@@ -29,18 +29,6 @@ data.raw["item-with-entity-data"]["ironclad"].subgroup = "water_transport"
 data.raw["recipe"]["rail-minimal"].category = "electromechanics-or-crafting"
 data.raw["recipe"]["rail-ramp-minimal"].category = "electromechanics-or-crafting"
 data.raw["recipe"]["muluna-rocket-buggy"].category = "electromechanics-or-crafting"
-data.raw["recipe"]["long-range-delivery-drone-depot"].category = "electromechanics-or-crafting"
-data.raw["recipe"]["long-range-delivery-drone-request-depot"].category = "electromechanics-or-crafting"
-
-for _,v in pairs({
-    "long-range-delivery-drone",
-    "rubia-armored-locomotive",
-    "rubia-armored-cargo-wagon",
-    "rubia-armored-fluid-wagon",
-    ""
-}) do
-    data_util.recipe_add_additional_categories(v, {"electromechanics"})
-end
 
 for _,v in pairs({
     "storage-tank", "fluid-tank-1x1", "fluid-tank-2x2",
@@ -97,8 +85,9 @@ for _,v in pairs({
     "fluid-tank-2x2",
     "fluid-tank-3x4",
     "fluid-tank-5x5",
+    "diesel-pump"
 }) do
-    data.raw["item"][v].category = "maraxsis-hydro-plant-or-assembling"
+    data.raw["recipe"][v].category = "maraxsis-hydro-plant-or-assembling"
 end
 
 data.raw["recipe"]["electrochemical-science-pack"].subgroup = "science-pack"
@@ -109,6 +98,12 @@ data.raw["recipe"]["gas-manipulation-science-pack"].order = data.raw["tool"]["ga
 data.raw["recipe"]["cerys-space-science-pack-from-methane-ice"].order = data.raw["tool"]["space-science-pack"].order .. "-3"
 
 for _,recipe in pairs({
+    "long-range-delivery-drone-depot",
+    "long-range-delivery-drone-request-depot",
+    "long-range-delivery-drone",
+    "rubia-armored-locomotive",
+    "rubia-armored-cargo-wagon",
+    "rubia-armored-fluid-wagon",
     "diesel-inserter",
     "fast-diesel-inserter",
     "rubia-long-bulk-inserter",
@@ -122,15 +117,8 @@ for _,recipe in pairs({
     "fluid-tank-3x4",
     "fluid-tank-5x5",
     "diesel-pump",
-    "duct-small",
-    "duct-underground",
-    "duct-t-junction",
-    "duct-curve",
-    "duct-cross",
-    "non-return-duct",
-    "duct-intake",
-    "duct-exhaust",
-    "maraxsis-trench-duct"
+    "aai-express-loader",
+    "maraxsis-diesel-submarine",
 }) do
     data_util.recipe_add_additional_categories(recipe, {"mechanics"})
 end
@@ -153,10 +141,13 @@ for _,recipe in pairs({
     data_util.recipe_add_additional_categories(recipe, {"biochemistry"})
 end
 
-for _,recipe in pairs({
-    "wooden-platform",
-    "coconut-husk-spoiling",
-    "wood-spoiling",
-}) do
-    data_util.recipe_add_additional_categories(recipe, {"woodworking"})
-end
+data.raw["ammo-turret"]["gold-railgun-turret"] = nil
+data.raw["item"]["gold-railgun-turret"] = nil
+data.raw["recipe"]["gold-railgun-turret"] = nil
+
+data.raw["assembling-machine"]["aop-greenhouse"] = nil
+data.raw["assembling-machine"]["aop-smeltery"] = nil
+
+data.raw["item"]["aop-greenhouse"] = nil
+data.raw["item"]["aop-smeltery"] = nil
+
