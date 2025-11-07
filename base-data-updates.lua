@@ -141,6 +141,14 @@ for _,recipe in pairs({
     data_util.recipe_add_additional_categories(recipe, {"biochemistry"})
 end
 
+for _,recipe in pairs({
+    "pirateship",
+    "wooden-platform",
+    "wood-processing",
+}) do
+    data_util.recipe_add_additional_categories(recipe, {"woodworking"})
+end
+
 data.raw["ammo-turret"]["gold-railgun-turret"] = nil
 data.raw["item"]["gold-railgun-turret"] = nil
 data.raw["recipe"]["gold-railgun-turret"] = nil

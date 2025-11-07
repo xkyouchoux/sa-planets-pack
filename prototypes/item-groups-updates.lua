@@ -101,9 +101,71 @@ local data = {
 
     {
         type = "item",
+        name = "stone-furnace",
+        subgroup = "smelting-machine",
+        order = "a",
+    },
+    {
+        type = "item",
+        name = "muluna-steam-stone-furnace",
+        subgroup = "smelting-machine",
+        order = "b",
+    },
+    {
+        type = "item",
+        name = "steel-furnace",
+        subgroup = "smelting-machine",
+        order = "c",
+    },
+    {
+        type = "item",
+        name = "muluna-steam-steel-furnace",
+        subgroup = "smelting-machine",
+        order = "d",
+    },
+    {
+        type = "item",
+        name = "electric-furnace",
+        subgroup = "smelting-machine",
+        order = "e",
+    },
+    {
+        type = "item",
+        name = "foundry",
+        subgroup = "smelting-machine",
+        order = "f",
+    },
+    {
+        type = "item",
+        name = "aop-arc-furnace",
+        subgroup = "smelting-machine",
+        order = "g",
+    },
+    {
+        type = "item",
+        name = "calciner",
+        subgroup = "smelting-machine",
+        order = "h",
+    },
+    {
+        type = "item",
+        name = "vesta-combustion-furnace",
+        subgroup = "smelting-machine",
+        order = "i",
+    },
+    {
+        type = "recipe",
+        name = "vesta-combustion-furnace",
+        subgroup = "smelting-machine",
+        order = "i",
+    },
+
+    {
+        type = "item",
         name = "crusher",
         subgroup = "crushing-machine",
-    },{
+    },
+    {
         type = "recipe",
         name = "crusher",
         subgroup = "crushing-machine",
@@ -180,72 +242,86 @@ local data = {
         type = "item",
         name = "assembling-machine-1",
         subgroup = "assembling-machine",
+        order = "a",
     },
     {
         type = "item",
         name = "assembling-machine-2",
         subgroup = "assembling-machine",
-    },
-    {
-        type = "item",
-        name = "barreling-machine",
-        subgroup = "assembling-machine",
-    },
-    {
-        type = "item",
-        name = "diesel-assembling-machine",
-        subgroup = "assembling-machine",
+        order = "b",
     },
     {
         type = "item",
         name = "assembling-machine-3",
         subgroup = "assembling-machine",
+        order = "c",
+    },
+    {
+        type = "item",
+        name = "diesel-assembling-machine",
+        subgroup = "assembling-machine",
+        order = "d",
     },
     {
         type = "item",
         name = "aop-advanced-assembling-machine",
         subgroup = "assembling-machine",
+        order = "e",
+    },
+    {
+        type = "item",
+        name = "barreling-machine",
+        subgroup = "assembling-machine",
+        order = "f",
     },
 
     {
         type = "item",
-        name = "chemical-plant",
-        subgroup = "chemistry",
-    },
-    {
-        type = "item",
         name = "oil-refinery",
         subgroup = "chemistry",
-    },
-    {
-        type = "item",
-        name = "vesta-electrolyzer",
-        subgroup = "chemistry",
-    },
-    {
-        type = "recipe",
-        name = "vesta-electrolyzer",
-        subgroup = "chemistry",
-    },
-    {
-        type = "item",
-        name = "catalytic-chemical-plant",
-        subgroup = "chemistry",
+        order = "a",
     },
     {
         type = "item",
         name = "aop-petrochemical-facility",
         subgroup = "chemistry",
+        order = "b",
     },
     {
         type = "item",
-        name = "cryogenic-plant",
+        name = "chemical-plant",
         subgroup = "chemistry",
+        order = "c",
+    },
+    {
+        type = "item",
+        name = "catalytic-chemical-plant",
+        subgroup = "chemistry",
+        order = "d",
     },
     {
         type = "item",
         name = "electrochemical-plant",
         subgroup = "chemistry",
+        order = "e",
+    },
+    {
+        type = "item",
+        name = "cryogenic-plant",
+        subgroup = "chemistry",
+        order = "f",
+    },
+    {
+        type = "item",
+        name = "vesta-electrolyzer",
+        subgroup = "chemistry",
+        order = "g",
+    },
+    {
+        type = "recipe",
+        name = "vesta-electrolyzer",
+        subgroup = "chemistry",
+        order = "g",
     },
 
     {
@@ -261,48 +337,57 @@ local data = {
 
     {
         type = "item",
-        name = "electromagnetic-plant",
-        subgroup = "advanced-machine",
-    },
-    {
-        type = "item",
         name = "aop-armory",
         subgroup = "advanced-machine",
+        order = "a",
     },
     {
         type = "item",
-        name = "aop-electromechanic-facility",
+        name = "electromagnetic-plant",
         subgroup = "advanced-machine",
-    },
-    {
-        type = "item",
-        name = "maraxsis-hydro-plant",
-        subgroup = "advanced-machine",
+        order = "b",
     },
     {
         type = "item",
         name = "aop-mineral-synthesizer",
         subgroup = "advanced-machine",
+        order = "c",
     },
     {
         type = "item",
-        name = "supermagnet",
+        name = "maraxsis-hydro-plant",
         subgroup = "advanced-machine",
-    },
-    {
-        type = "recipe",
-        name = "supermagnet",
-        subgroup = "advanced-machine",
-    },
-    {
-        type = "item",
-        name = "aop-quantum-assembler",
-        subgroup = "advanced-machine",
+        order = "d",
     },
     {
         type = "item",
         name = "mechanical-plant",
         subgroup = "advanced-machine",
+        order = "e",
+    },
+    {
+        type = "item",
+        name = "aop-electromechanic-facility",
+        subgroup = "advanced-machine",
+        order = "f",
+    },
+    {
+        type = "item",
+        name = "supermagnet",
+        subgroup = "advanced-machine",
+        order = "g",
+    },
+    {
+        type = "recipe",
+        name = "supermagnet",
+        subgroup = "advanced-machine",
+        order = "g",
+    },
+    {
+        type = "item",
+        name = "aop-quantum-assembler",
+        subgroup = "advanced-machine",
+        order = "h",
     },
 
     {
