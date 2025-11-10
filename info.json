@@ -1,6 +1,6 @@
 {
   "name": "sa-planets-pack",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "title": "SA Planets Pack",
   "author": "xkyouchoux",
   "description": "Not intended to be used and no support offered. This is simple to help with server. Does contain some changes to progression.",
@@ -32,7 +32,8 @@
 
     "Assembler-Reskin",
     "RateCalculator",
-    "ChangeInserterDropLane"
+    "ChangeInserterDropLane",
+    "barreling-group2"
   ],
   "space_travel_reuired": true,
   "factorio_version": "2.0"

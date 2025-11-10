@@ -90,6 +90,23 @@ for _,v in pairs({
     data.raw["recipe"][v].category = "maraxsis-hydro-plant-or-assembling"
 end
 
+for _,v in pairs({
+    "corrosive-firearm-magazine",
+    "mortar-bomb",
+    "mortar-cluster-bomb",
+    "pirateship-cannonball"
+}) do
+    data.raw["recipe"][v].category = "ammunition-or-crafting"
+end
+
+for _,v in pairs({
+    "plutonium-rounds-magazine",
+    "cerys-neutron-bomb",
+    "cerys-hydrogen-bomb"
+}) do
+    data.raw["recipe"][v].category = "advanced-centrifuging-or-crafting"
+end
+
 data.raw["recipe"]["electrochemical-science-pack"].subgroup = "science-pack"
 data.raw["recipe"]["electrochemical-science-pack"].order = data.raw["tool"]["electrochemical-science-pack"].order
 
@@ -98,12 +115,7 @@ data.raw["recipe"]["gas-manipulation-science-pack"].order = data.raw["tool"]["ga
 data.raw["recipe"]["cerys-space-science-pack-from-methane-ice"].order = data.raw["tool"]["space-science-pack"].order .. "-3"
 
 for _,recipe in pairs({
-    "long-range-delivery-drone-depot",
-    "long-range-delivery-drone-request-depot",
     "long-range-delivery-drone",
-    "rubia-armored-locomotive",
-    "rubia-armored-cargo-wagon",
-    "rubia-armored-fluid-wagon",
     "diesel-inserter",
     "fast-diesel-inserter",
     "rubia-long-bulk-inserter",
@@ -121,6 +133,16 @@ for _,recipe in pairs({
     "maraxsis-diesel-submarine",
 }) do
     data_util.recipe_add_additional_categories(recipe, {"mechanics"})
+end
+
+for _,recipe in pairs({
+    "long-range-delivery-drone-depot",
+    "long-range-delivery-drone-request-depot",
+    "rubia-armored-locomotive",
+    "rubia-armored-cargo-wagon",
+    "rubia-armored-fluid-wagon",
+}) do
+    data_util.recipe_add_additional_categories(recipe, {"electromechanics"})
 end
 
 for _,recipe in pairs({
