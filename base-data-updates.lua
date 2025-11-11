@@ -6,16 +6,6 @@ if settings.startup["spp-rubia-disable-efficiency-module-4"].value then
     data.raw["technology"]["rubia-efficiency-module4"] = nil
 end
 
-if settings.startup["spp-aai-loader-stacking"].value then
-    for _,loader in pairs(data.raw["loader-1x1"]) do
-        if loader.name:find("aai-") then
-            loader.adjustable_belt_stack_size = true
-            loader.wait_for_full_stack = true
-            loader.max_belt_stack_size = data.raw["utility-constants"]["default"].max_belt_stack_size
-        end
-    end
-end
-
 data.raw["item"]["ice-box"].subgroup = "container-1"
 data.raw["item"]["ice-box"].order = "z[items]-c[ice-box]"
 
@@ -198,47 +188,53 @@ data.raw["recipe"]["golden-egg"] = nil
 data_util.recipe_add_ingredient("solar-matrix", "silicon-cell", 6)
 data_util.recipe_add_ingredient("accumulator-v2", "magnet", 5)
 
-local speed_module_4 = table.deepcopy(data.raw["module"]["speed-module-4-S"])
-speed_module_4.name = "speed-module-4"
-local speed_module_4_recipe = table.deepcopy(data.raw["recipe"]["speed-module-4-S"])
-speed_module_4_recipe.name = "speed-module-4"
-speed_module_4_recipe.results[1].name = "speed-module-4"
-speed_module_4_recipe.main_product = nil
-data.raw["module"]["speed-module-4-S"] = nil
-data.raw["recipe"]["speed-module-4-S"] = nil
-data:extend({speed_module_4, speed_module_4_recipe})
-
-local efficiency_module_4 = table.deepcopy(data.raw["module"]["efficiency-module-4-S"])
-efficiency_module_4.name = "efficiency-module-4"
-local efficiency_module_4_recipe = table.deepcopy(data.raw["recipe"]["efficiency-module-4-S"])
-efficiency_module_4_recipe.name = "efficiency-module-4"
-efficiency_module_4_recipe.results[1].name = "efficiency-module-4"
-efficiency_module_4_recipe.main_product = nil
-data.raw["module"]["efficiency-module-4-S"] = nil
-data.raw["recipe"]["efficiency-module-4-S"] = nil
-data:extend({efficiency_module_4, efficiency_module_4_recipe})
-
-local productivity_module_4 = table.deepcopy(data.raw["module"]["productivity-module-4-S"])
-productivity_module_4.name = "productivity-module-4"
-local productivity_module_4_recipe = table.deepcopy(data.raw["recipe"]["productivity-module-4-S"])
-productivity_module_4_recipe.name = "productivity-module-4"
-productivity_module_4_recipe.results[1].name = "productivity-module-4"
-productivity_module_4_recipe.main_product = nil
-data.raw["module"]["productivity-module-4-S"] = nil
-data.raw["recipe"]["productivity-module-4-S"] = nil
-data:extend({productivity_module_4, productivity_module_4_recipe})
-
-local quality_module_4 = table.deepcopy(data.raw["module"]["quality-module-4-S"])
-quality_module_4.name = "quality-module-4"
-local quality_module_4_recipe = table.deepcopy(data.raw["recipe"]["quality-module-4-S"])
-quality_module_4_recipe.name = "quality-module-4"
-quality_module_4_recipe.results[1].name = "quality-module-4"
-quality_module_4_recipe.main_product = nil
-data.raw["module"]["quality-module-4-S"] = nil
-data.raw["recipe"]["quality-module-4-S"] = nil
-data:extend({quality_module_4, quality_module_4_recipe})
-
-data.raw["produce-achievement"]["crafting-with-hyper-quality"].item_product = "quality-module-4"
-data.raw["produce-achievement"]["crafting-with-hyper-productivity"].item_product = "productivity-module-4"
-data.raw["produce-achievement"]["crafting-with-hyper-speed"].item_product = "speed-module-4"
-data.raw["produce-achievement"]["crafting-with-hyper-efficiency"].item_product = "efficiency-module-4"
+for _,module in pairs({"speed", "efficiency", "productivity", "quality"}) do
+    local old_name = module.."-module-4-S"
+    local new_name = module.."-module-4"
+    local module_4 = table.deepcopy(data.raw["module"][old_name])
+    module_4.name = new_name
+    local module_4_recipe = table.deepcopy(data.raw["recipe"][old_name])
+    module_4_recipe.name = new_name
+    module_4_recipe.results[1].name = new_name
+    module_4_recipe.main_product = nil
+    data.raw["module"][old_name] = nil
+    data.raw["recipe"][old_name] = nil
+    data.raw["technology"][old_name] = nil
+    data:extend({module_4, module_4_recipe, {
+        type = "technology",
+        name = new_name,
+        icon = "__secretas__/graphics/technology/"..new_name.."-tech.png",
+        icon_size = 256,
+        effects = {
+            {
+                type = "unlock-recipe",
+                recipe = new_name
+            }
+        },
+        prerequisites = {
+            "golden-science-pack",
+            module.."-module-3"
+        },
+        unit = {
+            count = 2000,
+            time = 60,
+            ingredients = {
+                {"automation-science-pack", 1},
+                {"logistic-science-pack", 1},
+                {"chemical-science-pack", 1},
+                {"production-science-pack", 1},
+                {"utility-science-pack", 1},
+                {"space-science-pack", 1},
+                {"nuclear-science-pack", 1},
+                {"metallurgic-science-pack", 1},
+                {"agricultural-science-pack", 1},
+                {"electromagnetic-science-pack", 1},
+                {"interstellar-science-pack", 1},
+                {"cryogenic-science-pack", 1},
+                {"golden-science-pack", 1},
+            }
+        },
+        upgrade = true,
+    }})
+    data.raw["produce-achievement"]["crafting-with-hyper-"..module].item_product = new_name
+end
