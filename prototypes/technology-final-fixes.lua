@@ -63,6 +63,12 @@ data.raw["technology"]["golden-science-pack"].icons = nil
 data.raw["technology"]["hyper-inserter"].icon = data.raw["technology"]["hyper-inserter"].icons[1].icon
 data.raw["technology"]["hyper-inserter"].icons = nil
 
+for _,tech in pairs({"steam-recycler", "productivity-module-4"}) do
+    for _,effect in pairs(data.raw["technology"][tech].effects) do
+        if effect.type == "unlock-recipe" and effect.recipe == "golden-egg" then effect.recipe = "golden-biter-egg" end
+    end
+end
+
 for _,v in pairs({
     "aop-electromechanics",
     "aop-advanced-recycling",
@@ -140,8 +146,6 @@ data_util.tech_add_prerequisites("muluna-space-telescope", {
     "golden-science-pack"
 })
 
-data.raw["technology"]["gold-railgun-turret"] = nil
-
 local function remove_aop_tech(tech_name)
     for _,effect in pairs(data.raw["technology"][tech_name].effects) do
         if effect.type == "unlock-recipe" and effect.recipe then
@@ -155,3 +159,8 @@ remove_aop_tech("aop-atomic-enricher")
 remove_aop_tech("aop-greenhouse")
 remove_aop_tech("aop-agriculture-productivity")
 remove_aop_tech("aop-smeltery")
+
+data_util.tech_add_prerequisites("solar-matrix", {"moshine-tech-ai-tier-2"}) -- solar
+data_util.tech_add_prerequisites("accumulator-v2", {"moshine-tech-ai-tier-6"}) -- accumulator
+
+data.raw["technology"]["rocket-fuel-catalysis-productivity-infinite"] = nil

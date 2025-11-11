@@ -8,6 +8,8 @@ function Util.table_contains(_table, value)
     return false
 end
 
+Util.NIL = "__CONDITIONAL_MODIFY_NIL__"
+
 function Util.conditional_modify(params)
     if not params then return end
     if not (params.type and params.name) then return end
@@ -16,7 +18,11 @@ function Util.conditional_modify(params)
         prototype = data.raw[params.type][params.name]
         if prototype then
             for k,v in pairs(params) do
-                prototype[k] = v
+                if v == Util.NIL then
+                    prototype[k] = nil
+                else
+                    prototype[k] = v
+                end
             end
         end
     end
@@ -34,9 +40,19 @@ function Util.recipe_replace_ingredient_sub(recipe, from, to, amount, is_fluid)
     end
 end
 
+function Util.recipe_add_ingredient_sub(recipe, name, amount, is_fluid)
+    local type = is_fluid and "fluid" or "item"
+    table.insert(recipe.ingredients, {type = is_fluid and "fluid" or "item", name = name, amount = amount})
+end
+
 function Util.recipe_replace_ingredient(recipe_name, from, to, amount, is_fluid)
     local recipe = data.raw["recipe"][recipe_name]
     Util.recipe_replace_ingredient_sub(recipe, from, to, amount, is_fluid)
+end
+
+function Util.recipe_add_ingredient(recipe_name, name, amount, is_fluid)
+    local recipe = data.raw["recipe"][recipe_name]
+    Util.recipe_add_ingredient_sub(recipe, name, amount, is_fluid)
 end
 
 function Util.tech_remove_prerequisites(tech_name, prerequisites)
@@ -175,6 +191,20 @@ function Util.recipe_add_additional_categories(recipe_name, categories)
             table.insert(recipe.additional_categories, v)
         end
     end
+end
+
+function Util.delete(params)
+    local name = params.name
+    local item_name = params.item_name or name
+    data.raw[params.item_type or "item"][item_name] = nil
+    data.raw["recipe"][item_name .. "-recycling"] = nil
+    data.raw["recipe"]["item-" .. item_name .. "-incineration"] = nil
+    data.raw["recipe"]["yeet-item-" .. item_name] = nil
+    if params.entity_type then
+        data.raw[params.entity_type][params.entity_name or name] = nil
+    end
+    data.raw["recipe"][params.recipe_name or name] = nil
+    data.raw["technology"][params.technology_name or name] = nil
 end
 
 return Util

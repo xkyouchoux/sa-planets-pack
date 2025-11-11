@@ -7,7 +7,7 @@ data:extend({
         effects = {
             {
                 type = "unlock-recipe",
-                recipe = "speed-module-4-S"
+                recipe = "speed-module-4"
             }
         },
         prerequisites = {
@@ -43,7 +43,7 @@ data:extend({
         effects = {
             {
                 type = "unlock-recipe",
-                recipe = "efficiency-module-4-S"
+                recipe = "efficiency-module-4"
             }
         },
         prerequisites = {
@@ -79,7 +79,7 @@ data:extend({
         effects = {
             {
                 type = "unlock-recipe",
-                recipe = "productivity-module-4-S"
+                recipe = "productivity-module-4"
             },
             {
                 type = "unlock-recipe",
@@ -119,7 +119,7 @@ data:extend({
         effects = {
             {
                 type = "unlock-recipe",
-                recipe = "quality-module-4-S"
+                recipe = "quality-module-4"
             }
         },
         prerequisites = {

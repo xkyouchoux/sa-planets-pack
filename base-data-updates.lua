@@ -99,20 +99,27 @@ for _,v in pairs({
     data.raw["recipe"][v].category = "ammunition-or-crafting"
 end
 
-for _,v in pairs({
+for _,recipe in pairs({
     "plutonium-rounds-magazine",
     "cerys-neutron-bomb",
-    "cerys-hydrogen-bomb"
+    "cerys-hydrogen-bomb",
+    "cerys-mixed-oxide-reactor",
+    "mixed-oxide-fuel-cell",
+    "msr-fuel-cell",
+    "plutonium-fuel",
 }) do
-    data.raw["recipe"][v].category = "advanced-centrifuging-or-crafting"
+    data_util.recipe_add_additional_categories(recipe, {"advanced-centrifuging"})
 end
 
 data.raw["recipe"]["electrochemical-science-pack"].subgroup = "science-pack"
 data.raw["recipe"]["electrochemical-science-pack"].order = data.raw["tool"]["electrochemical-science-pack"].order
 
 data.raw["recipe"]["rubia-bio-utility-science-pack"].order = data.raw["tool"]["utility-science-pack"].order .. "-2"
-data.raw["recipe"]["gas-manipulation-science-pack"].order = data.raw["tool"]["gas-manipulation-science-pack"].order
 data.raw["recipe"]["cerys-space-science-pack-from-methane-ice"].order = data.raw["tool"]["space-science-pack"].order .. "-3"
+
+data.raw["recipe"]["gas-manipulation-science-pack"].order = nil
+data.raw["recipe"]["gas-manipulation-science-pack"].subgroup = nil
+data.raw["recipe"]["gas-manipulation-science-pack"].main_product = "gas-manipulation-science-pack"
 
 for _,recipe in pairs({
     "long-range-delivery-drone",
@@ -146,6 +153,18 @@ for _,recipe in pairs({
 end
 
 for _,recipe in pairs({
+    "rubia-armored-locomotive",
+    "rubia-armored-cargo-wagon",
+    "rubia-armored-fluid-wagon",
+    "rubia-long-bulk-inserter",
+    "rubia-long-stack-inserter",
+    "craptonite-wall",
+    "lighthouse",
+}) do
+    data.raw["recipe"][recipe].category = "crafting"
+end
+
+for _,recipe in pairs({
     "maraxsis-fish-food",
     "maraxsis-microplastics",
     "coconut-processing",
@@ -171,13 +190,55 @@ for _,recipe in pairs({
     data_util.recipe_add_additional_categories(recipe, {"woodworking"})
 end
 
-data.raw["ammo-turret"]["gold-railgun-turret"] = nil
-data.raw["item"]["gold-railgun-turret"] = nil
-data.raw["recipe"]["gold-railgun-turret"] = nil
+local golden_biter_egg_recipe = table.deepcopy(data.raw["recipe"]["golden-egg"])
+golden_biter_egg_recipe.name = "golden-biter-egg"
+data.extend({golden_biter_egg_recipe})
+data.raw["recipe"]["golden-egg"] = nil
 
-data.raw["assembling-machine"]["aop-greenhouse"] = nil
-data.raw["assembling-machine"]["aop-smeltery"] = nil
+data_util.recipe_add_ingredient("solar-matrix", "silicon-cell", 6)
+data_util.recipe_add_ingredient("accumulator-v2", "magnet", 5)
 
-data.raw["item"]["aop-greenhouse"] = nil
-data.raw["item"]["aop-smeltery"] = nil
+local speed_module_4 = table.deepcopy(data.raw["module"]["speed-module-4-S"])
+speed_module_4.name = "speed-module-4"
+local speed_module_4_recipe = table.deepcopy(data.raw["recipe"]["speed-module-4-S"])
+speed_module_4_recipe.name = "speed-module-4"
+speed_module_4_recipe.results[1].name = "speed-module-4"
+speed_module_4_recipe.main_product = nil
+data.raw["module"]["speed-module-4-S"] = nil
+data.raw["recipe"]["speed-module-4-S"] = nil
+data:extend({speed_module_4, speed_module_4_recipe})
 
+local efficiency_module_4 = table.deepcopy(data.raw["module"]["efficiency-module-4-S"])
+efficiency_module_4.name = "efficiency-module-4"
+local efficiency_module_4_recipe = table.deepcopy(data.raw["recipe"]["efficiency-module-4-S"])
+efficiency_module_4_recipe.name = "efficiency-module-4"
+efficiency_module_4_recipe.results[1].name = "efficiency-module-4"
+efficiency_module_4_recipe.main_product = nil
+data.raw["module"]["efficiency-module-4-S"] = nil
+data.raw["recipe"]["efficiency-module-4-S"] = nil
+data:extend({efficiency_module_4, efficiency_module_4_recipe})
+
+local productivity_module_4 = table.deepcopy(data.raw["module"]["productivity-module-4-S"])
+productivity_module_4.name = "productivity-module-4"
+local productivity_module_4_recipe = table.deepcopy(data.raw["recipe"]["productivity-module-4-S"])
+productivity_module_4_recipe.name = "productivity-module-4"
+productivity_module_4_recipe.results[1].name = "productivity-module-4"
+productivity_module_4_recipe.main_product = nil
+data.raw["module"]["productivity-module-4-S"] = nil
+data.raw["recipe"]["productivity-module-4-S"] = nil
+data:extend({productivity_module_4, productivity_module_4_recipe})
+
+local quality_module_4 = table.deepcopy(data.raw["module"]["quality-module-4-S"])
+quality_module_4.name = "quality-module-4"
+local quality_module_4_recipe = table.deepcopy(data.raw["recipe"]["quality-module-4-S"])
+quality_module_4_recipe.name = "quality-module-4"
+quality_module_4_recipe.results[1].name = "quality-module-4"
+quality_module_4_recipe.main_product = nil
+data.raw["module"]["quality-module-4-S"] = nil
+data.raw["recipe"]["quality-module-4-S"] = nil
+data:extend({quality_module_4, quality_module_4_recipe})
+
+data.raw["produce-achievement"]["crafting-with-hyper-quality"].item_product = "quality-module-4"
+data.raw["produce-achievement"]["crafting-with-hyper-productivity"].item_product = "productivity-module-4"
+data.raw["produce-achievement"]["crafting-with-hyper-speed"].item_product = "speed-module-4"
+data.raw["produce-achievement"]["crafting-with-hyper-efficiency"].item_product = "efficiency-module-4"
