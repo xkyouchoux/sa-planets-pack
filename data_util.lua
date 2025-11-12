@@ -10,6 +10,8 @@ end
 
 Util.NIL = "__CONDITIONAL_MODIFY_NIL__"
 
+local error_on_missing = true
+
 function Util.conditional_modify(params)
     if not params then return end
     if not (params.type and params.name) then return end
@@ -24,7 +26,11 @@ function Util.conditional_modify(params)
                     prototype[k] = v
                 end
             end
+        else
+            if error_on_missing then error("conditional_modify: missing prototype: "..params.name) end
         end
+    else
+        if error_on_missing then error("conditional_modify: missing type: "..params.type) end
     end
 end
 
@@ -40,24 +46,33 @@ function Util.recipe_replace_ingredient_sub(recipe, from, to, amount, is_fluid)
     end
 end
 
+function Util.recipe_replace_ingredient(recipe_name, from, to, amount, is_fluid)
+    local recipe = data.raw["recipe"][recipe_name]
+    if recipe then
+        Util.recipe_replace_ingredient_sub(recipe, from, to, amount, is_fluid)
+    else
+        if error_on_missing then error("missing recipe: "..recipe_name) end
+    end
+end
+
 function Util.recipe_add_ingredient_sub(recipe, name, amount, is_fluid)
     local type = is_fluid and "fluid" or "item"
     table.insert(recipe.ingredients, {type = is_fluid and "fluid" or "item", name = name, amount = amount})
 end
 
-function Util.recipe_replace_ingredient(recipe_name, from, to, amount, is_fluid)
-    local recipe = data.raw["recipe"][recipe_name]
-    Util.recipe_replace_ingredient_sub(recipe, from, to, amount, is_fluid)
-end
-
 function Util.recipe_add_ingredient(recipe_name, name, amount, is_fluid)
     local recipe = data.raw["recipe"][recipe_name]
-    Util.recipe_add_ingredient_sub(recipe, name, amount, is_fluid)
+    if recipe then
+        Util.recipe_add_ingredient_sub(recipe, name, amount, is_fluid)
+    else
+        if error_on_missing then error("missing recipe: "..recipe_name) end
+    end
 end
 
 function Util.tech_remove_prerequisites(tech_name, prerequisites)
     local tech = data.raw["technology"][tech_name]
-    if tech and tech.prerequisites then
+    if tech then
+        if not tech.prerequisites then return end
         for _,v in pairs(prerequisites) do
             for i = #tech.prerequisites, 1, -1 do
                 if tech.prerequisites[i] == v then
@@ -65,12 +80,15 @@ function Util.tech_remove_prerequisites(tech_name, prerequisites)
                 end
             end
         end
+    else
+        if error_on_missing then error("missing tech: "..tech_name) end
     end
 end
 
 function Util.tech_remove_ingredients(tech_name, ingredients)
     local tech = data.raw["technology"][tech_name]
-    if tech and tech.unit then
+    if tech then
+        if not tech.unit then return end
         for _,v in pairs(ingredients) do
             for i = #tech.unit.ingredients, 1, -1 do
                 if tech.unit.ingredients[i][1] == v then
@@ -78,12 +96,15 @@ function Util.tech_remove_ingredients(tech_name, ingredients)
                 end
             end
         end
+    else
+        if error_on_missing then error("missing tech: "..tech_name) end
     end
 end
 
 function Util.tech_remove_effects(tech_name, effects)
     local tech = data.raw["technology"][tech_name]
-    if tech and tech.effects then
+    if tech then
+        if not tech.effects then return end
         for _,v in pairs(effects) do
             for i = #tech.effects, 1, -1 do
                 if tech.effects[i].type == v.type and tech.effects[i].recipe == v.recipe then
@@ -91,6 +112,8 @@ function Util.tech_remove_effects(tech_name, effects)
                 end
             end
         end
+    else
+        if error_on_missing then error("missing tech: "..tech_name) end
     end
 end
 
@@ -117,8 +140,11 @@ end
 
 function Util.tech_has_ingredient(tech_name, ingredient_name)
     local tech = data.raw["technology"][tech_name]
-    if tech and tech.unit and tech.unit.ingredients then
+    if tech then
+        if not (tech.unit and tech.unit.ingredients) then return false end
         return Util.tech_has_ingredient_sub(tech, ingredient_name)
+    else
+        if error_on_missing then error("missing tech: "..tech_name) end
     end
     return false
 end
@@ -159,6 +185,8 @@ function Util.tech_add_ingredients_with_prerequisites(tech_name, ingredients, tr
             end
         end
         Util.tech_add_prerequisites_sub(tech, prerequisites)
+    else
+        if error_on_missing then error("missing tech: "..tech_name) end
     end
 end
 
@@ -166,6 +194,8 @@ function Util.tech_add_effects(tech_name, effects)
     local tech = data.raw["technology"][tech_name]
     if tech then
         Util.tech_add_effects_sub(tech, effects)
+    else
+        if error_on_missing then error("missing tech: "..tech_name) end
     end
 end
 
@@ -173,6 +203,8 @@ function Util.tech_add_prerequisites(tech_name, prerequisites)
     local tech = data.raw["technology"][tech_name]
     if tech then
         Util.tech_add_prerequisites_sub(tech, prerequisites)
+    else
+        if error_on_missing then error("missing tech: "..tech_name) end
     end
 end
 
@@ -180,16 +212,20 @@ function Util.tech_add_ingredients(tech_name, ingredients)
     local tech = data.raw["technology"][tech_name]
     if tech then
         Util.tech_add_ingredients_sub(tech, ingredients)
+    else
+        if error_on_missing then error("missing tech: "..tech_name) end
     end
 end
 
 function Util.recipe_add_additional_categories(recipe_name, categories)
     local recipe = data.raw["recipe"][recipe_name]
-    if recipe and categories then
+    if recipe then
         if not recipe.additional_categories then recipe.additional_categories = {} end
         for _,v in pairs(categories) do
             table.insert(recipe.additional_categories, v)
         end
+    else
+        if error_on_missing then error("missing recipe: "..recipe_name) end
     end
 end
 
