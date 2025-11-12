@@ -3,8 +3,15 @@ require("prototypes.item-groups")
 local data_util = require("__sa-planets-pack__.data_util")
 
 -- order updates only
-
-local order_changes = {}
+local function change_order(target, value)
+    local _type = (type(target) == "table" and target.type) or "item"
+    local name = (type(target) == "table" and target.name) or target
+    data_util.conditional_modify({
+        type = _type,
+        name = name,
+        order = value
+    })
+end
 
 local science_pack_orders = {
     ["automation-science-pack"] = "a-a",
@@ -33,29 +40,27 @@ local science_pack_orders = {
 }
 
 for k,v in pairs(science_pack_orders) do
-    order_changes[{type = "tool", name = k}] = v
+    change_order({type = "tool", name = k}, v)
 end
 
-order_changes["pump"] = "d"
-order_changes["diesel-pump"] = "d"
+change_order("pump", "d")
+change_order("diesel-pump", "d")
 
-order_changes[{type = "recipe", name = "cerys-space-science-pack-from-methane-ice"}] = science_pack_orders["space-science-pack"] .. "-3"
-order_changes[{type = "recipe", name = "rubia-bio-utility-science-pack"}] = science_pack_orders["utility-science-pack"] .. "-2"
+change_order({type = "recipe", name = "cerys-space-science-pack-from-methane-ice"}, science_pack_orders["space-science-pack"] .. "-3")
+change_order({type = "recipe", name = "rubia-bio-utility-science-pack"}, science_pack_orders["utility-science-pack"] .. "-2")
 
-order_changes["ice-box"] = "z[items]-c[ice-box]"
+change_order("ice-box", "z[items]-c[ice-box]")
 
-for k,v in pairs(order_changes) do
-    local _type = (type(k) == "table" and k.type) or "item"
-    local name = (type(k) == "table" and k.name) or k
+-- subgroup updates only
+local function change_subgroup(target, value)
+    local _type = (type(target) == "table" and target.type) or "item"
+    local name = (type(target) == "table" and target.name) or target
     data_util.conditional_modify({
         type = _type,
         name = name,
-        order = v
+        subgroup = value
     })
 end
-
--- subgroup updates only
-local subgroup_changes = {}
 
 -- pipe
 for _,item_name in pairs({
@@ -74,7 +79,7 @@ for _,item_name in pairs({
     {type = "recipe", name = "casting-pipe"},
     {type = "recipe", name = "casting-pipe-to-ground"},
 }) do
-    if item_name then subgroup_changes[item_name] = "pipe" end
+    change_subgroup(item_name, "pipe")
 end
 
 -- belt
@@ -84,27 +89,17 @@ for _,item_name in pairs({
     "aai-express-loader",
     "aai-turbo-loader",
 }) do
-    if item_name then subgroup_changes[item_name] = "belt" end
+    change_subgroup(item_name, "belt")
 end
 
 -- container-1
-subgroup_changes["ice-box"] = "container-1"
+change_subgroup("ice-box", "container-1")
 
 -- water_transport
-subgroup_changes[{type = "item-with-entity-data", name = "ironclad"}] = "water_transport"
+change_subgroup({type = "item-with-entity-data", name = "ironclad"}, "water_transport")
 
 -- science-pack
-subgroup_changes[{type = "tool", name = "electrochemical-science-pack"}] = "science-pack"
-
-for k,v in pairs(subgroup_changes) do
-    local _type = (type(k) == "table" and k.type) or "item"
-    local name = (type(k) == "table" and k.name) or k
-    data_util.conditional_modify({
-        type = _type,
-        name = name,
-        subgroup = v
-    })
-end
+change_subgroup({type = "tool", name = "electrochemical-science-pack"}, "science-pack")
 
 -- base
 
@@ -113,22 +108,33 @@ end
 -- extra storage tanks
 
 -- atan nuclear science
+
+-- muluna
+
+-- cerys
 for _,recipe in pairs({
     "plutonium-rounds-magazine",
     "cerys-neutron-bomb",
     "cerys-hydrogen-bomb",
     "cerys-mixed-oxide-reactor",
     "mixed-oxide-fuel-cell",
-    "msr-fuel-cell",
     "plutonium-fuel",
     "mixed-oxide-reactor-equipment",
 }) do
     data_util.recipe_add_additional_categories(recipe, {"advanced-centrifuging"})
 end
 
--- muluna
+for _,recipe in pairs({
+    "cerys-radiation-proof-inserter",
+}) do
+    data_util.recipe_add_additional_categories(recipe, {"mechanics"})
+end
 
--- cerys
+for _,recipe in pairs({
+    "mixed-oxide-reactor-equipment",
+}) do
+    data_util.recipe_add_additional_categories(recipe, {"electromechanics"})
+end
 
 -- rubia
 data_util.delete({name = "rubia-efficiency-module4"})
@@ -140,52 +146,125 @@ for _,recipe in pairs({
     "rubia-long-bulk-inserter",
     "rubia-long-stack-inserter",
     "craptonite-wall",
+}) do
+    data_util.conditional_modify({type = "recipe", name = recipe, category = "crafting"})
+end
+
+for _,recipe in pairs({
+    "rubia-long-bulk-inserter",
+    "rubia-long-stack-inserter",
+}) do
+    data_util.recipe_add_additional_categories(recipe, {"mechanics"})
+end
+
+for _,recipe in pairs({
+    "rubia-armored-locomotive",
+    "rubia-armored-cargo-wagon",
+    "rubia-armored-fluid-wagon",
+}) do
+    data_util.recipe_add_additional_categories(recipe, {"electromechanics"})
+end
+
+for _,recipe in pairs({
+    "rubia-bio-utility-science-pack",
+    "rubia-biofusion-promethium-science-pack",
+}) do
+    data_util.recipe_add_additional_categories(recipe, {"biochemistry"})
+end
+
+-- corrundum
+for _,recipe in pairs({
+    "calcium-sulfate-bioflux",
+    "calcium-sulfate-egg",
+    "calcium-sulfate-fish",
+}) do
+    data_util.recipe_add_additional_categories(recipe, {"biochemistry"})
+end
+
+-- moshine
+
+-- pelagos
+for _,recipe in pairs({
     "lighthouse",
 }) do
     data_util.conditional_modify({type = "recipe", name = recipe, category = "crafting"})
 end
 
--- corrundum
-
--- moshine
-
--- pelagos
-
--- maraxsis
 for _,v in pairs({
-    "fluid-tank-1x1",
-    "fluid-tank-2x2",
-    "fluid-tank-3x4",
-    "fluid-tank-5x5",
     "diesel-pump"
 }) do
     data_util.conditional_modify({type = "recipe", name = v, category = "maraxsis-hydro-plant-or-assembling"})
 end
 
--- paracelsin
-data_util.recipe_add_ingredient("solar-matrix", "silicon-cell", 6)
-data_util.recipe_add_ingredient("accumulator-v2", "magnet", 5)
-
 for _,recipe in pairs({
     "long-range-delivery-drone",
     "diesel-inserter",
     "fast-diesel-inserter",
-    "rubia-long-bulk-inserter",
     "crane-bulk-diesel-inserter",
     "crane-stack-diesel-inserter",
-    "hyper-inserter",
-    "rubia-long-stack-inserter",
-    "cerys-radiation-proof-inserter",
-    "fluid-tank-1x1",
-    "fluid-tank-2x2",
-    "fluid-tank-3x4",
-    "fluid-tank-5x5",
     "diesel-pump",
-    "aai-express-loader",
+}) do
+    data_util.recipe_add_additional_categories(recipe, {"mechanics"})
+end
+
+for _,v in pairs({
+    "corrosive-firearm-magazine",
+    "mortar-bomb",
+    "mortar-cluster-bomb",
+    "pirateship-cannonball"
+}) do
+    data_util.conditional_modify({type = "recipe", name = v, category = "ammunition-or-crafting"})
+end
+
+for _,recipe in pairs({
+    "long-range-delivery-drone-depot",
+    "long-range-delivery-drone-request-depot",
+}) do
+    data_util.recipe_add_additional_categories(recipe, {"electromechanics"})
+end
+
+for _,recipe in pairs({
+    "coconut-processing",
+    "fermentation-bacteria-cultivation",
+    "nutrients-from-coconut-meat",
+    "pelagos-science-pack",
+    "fermented-fish",
+}) do
+    data_util.recipe_add_additional_categories(recipe, {"biochemistry"})
+end
+
+for _,recipe in pairs({
+    "pirateship",
+    "wooden-platform",
+}) do
+    data_util.recipe_add_additional_categories(recipe, {"woodworking"})
+end
+
+-- maraxsis
+for _,recipe in pairs({
+    "msr-fuel-cell",
+}) do
+    data_util.recipe_add_additional_categories(recipe, {"advanced-centrifuging"})
+end
+
+for _,recipe in pairs({
     "maraxsis-diesel-submarine",
 }) do
     data_util.recipe_add_additional_categories(recipe, {"mechanics"})
 end
+
+
+for _,recipe in pairs({
+    "maraxsis-fish-food",
+    "maraxsis-microplastics",
+    "maraxsis-nutrients-from-tropical-fish",
+}) do
+    data_util.recipe_add_additional_categories(recipe, {"biochemistry"})
+end
+
+-- paracelsin
+data_util.recipe_add_ingredient("solar-matrix", "silicon-cell", 6)
+data_util.recipe_add_ingredient("accumulator-v2", "magnet", 5)
 
 -- secretas
 data_util.delete({name = "gold-railgun-turret", entity_type = "ammo-turret"})
@@ -244,50 +323,37 @@ for _,module in pairs({"speed", "efficiency", "productivity", "quality"}) do
     data_util.delete({name = old_name, item_type = "module"})
 end
 
+for _,recipe in pairs({
+    "hyper-inserter",
+}) do
+    data_util.recipe_add_additional_categories(recipe, {"mechanics"})
+end
+
 -- vesta
 
 -- age of production
+
+-- everything else
 for _,v in pairs({
-    "corrosive-firearm-magazine",
-    "mortar-bomb",
-    "mortar-cluster-bomb",
-    "pirateship-cannonball"
+    "fluid-tank-1x1",
+    "fluid-tank-2x2",
+    "fluid-tank-3x4",
+    "fluid-tank-5x5",
 }) do
-    data_util.conditional_modify({type = "recipe", name = v, category = "ammunition-or-crafting"})
+    data_util.conditional_modify({type = "recipe", name = v, category = "maraxsis-hydro-plant-or-assembling"})
 end
 
 for _,recipe in pairs({
-    "long-range-delivery-drone-depot",
-    "long-range-delivery-drone-request-depot",
-    "rubia-armored-locomotive",
-    "rubia-armored-cargo-wagon",
-    "rubia-armored-fluid-wagon",
-    "mixed-oxide-reactor-equipment",
+    "fluid-tank-1x1",
+    "fluid-tank-2x2",
+    "fluid-tank-3x4",
+    "fluid-tank-5x5",
+    "aai-express-loader",
 }) do
-    data_util.recipe_add_additional_categories(recipe, {"electromechanics"})
+    data_util.recipe_add_additional_categories(recipe, {"mechanics"})
 end
 
 for _,recipe in pairs({
-    "maraxsis-fish-food",
-    "maraxsis-microplastics",
-    "coconut-processing",
-    "fermentation-bacteria-cultivation",
-    "nutrients-from-coconut-meat",
-    "maraxsis-nutrients-from-tropical-fish",
-    "rubia-bio-utility-science-pack",
-    "pelagos-science-pack",
-    "rubia-biofusion-promethium-science-pack",
-    "calcium-sulfate-bioflux",
-    "calcium-sulfate-egg",
-    "calcium-sulfate-fish",
-    "fermented-fish",
-}) do
-    data_util.recipe_add_additional_categories(recipe, {"biochemistry"})
-end
-
-for _,recipe in pairs({
-    "pirateship",
-    "wooden-platform",
     "wood-processing",
 }) do
     data_util.recipe_add_additional_categories(recipe, {"woodworking"})
