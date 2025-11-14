@@ -139,11 +139,25 @@ data_util.tech_add_prerequisites("accumulator-v2", {"moshine-tech-ai-tier-6"}) -
 data_util.tech_add_ingredients("planet-discovery-secretas", {"galvanization-science-pack"})
 data_util.tech_add_prerequisites("planet-discovery-secretas", {"railgun"})
 
-data_util.tech_add_prerequisites("golden-science-pack", {"steam-recycler"})
+data_util.tech_remove_effects("steam-recycler", {
+    {type = "unlock-recipe", recipe = "gold-plate"},
+    {type = "unlock-recipe", recipe = "gold-plate-alt"},
+    {type = "unlock-recipe", recipe = "golden-egg"},
+})
 
-for _,effect in pairs(data.raw["technology"]["steam-recycler"].effects) do
-    if effect.type == "unlock-recipe" and effect.recipe == "golden-egg" then effect.recipe = "golden-biter-egg" end
-end
+data_util.tech_add_effects("asteroid-productivity", {
+    {type = "change-recipe-productivity", recipe = "auric-asteroid-crushing", change = 0.1},
+})
+
+data_util.tech_remove_effects("gold-plate-productivity", {
+    {type = "change-recipe-productivity", recipe = "gold-plate-alt"},
+})
+
+data_util.tech_add_effects("gold-plate-productivity", {
+    {type = "change-recipe-productivity", recipe = "casting-gold", change = 0.07},
+})
+
+data_util.tech_add_prerequisites("golden-science-pack", {"gold-smelting"})
 
 data_util.conditional_modify({
     type = "technology",
@@ -181,6 +195,10 @@ for _,v in pairs({
 }) do
     data_util.tech_add_prerequisites(v, {"golden-science-pack"})
 end
+
+data_util.tech_add_effects("productivity-module-4", {
+    {type = "unlock-recipe", recipe = "golden-biter-egg"},
+})
 
 data.raw["technology"]["science-pack-productivity"] = nil
 

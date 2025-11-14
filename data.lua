@@ -1,4 +1,7 @@
 require("prototypes.item-groups")
+require("prototypes.fluid")
+require("prototypes.recipe")
+require("prototypes.technology")
 
 local data_util = require("__sa-planets-pack__.data_util")
 
@@ -268,6 +271,11 @@ data_util.recipe_add_ingredient("accumulator-v2", "magnet", 5)
 
 -- secretas
 data_util.delete({name = "gold-railgun-turret", entity_type = "ammo-turret"})
+
+data.raw["recipe"]["gold-plate-alt"] = nil
+
+data.raw["recipe"]["gold-plate"].category = "smelting"
+data.raw["recipe"]["gold-plate"].energy_required = 3.2
 
 local golden_biter_egg_recipe = table.deepcopy(data.raw["recipe"]["golden-egg"])
 golden_biter_egg_recipe.name = "golden-biter-egg"
