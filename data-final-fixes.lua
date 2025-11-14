@@ -139,25 +139,15 @@ data_util.tech_add_prerequisites("accumulator-v2", {"moshine-tech-ai-tier-6"}) -
 data_util.tech_add_ingredients("planet-discovery-secretas", {"galvanization-science-pack"})
 data_util.tech_add_prerequisites("planet-discovery-secretas", {"railgun"})
 
+data_util.tech_add_prerequisites("golden-science-pack", {"steam-recycler"})
+
 data_util.tech_remove_effects("steam-recycler", {
-    {type = "unlock-recipe", recipe = "gold-plate"},
-    {type = "unlock-recipe", recipe = "gold-plate-alt"},
     {type = "unlock-recipe", recipe = "golden-egg"},
 })
 
 data_util.tech_add_effects("asteroid-productivity", {
     {type = "change-recipe-productivity", recipe = "auric-asteroid-crushing", change = 0.1},
 })
-
-data_util.tech_remove_effects("gold-plate-productivity", {
-    {type = "change-recipe-productivity", recipe = "gold-plate-alt"},
-})
-
-data_util.tech_add_effects("gold-plate-productivity", {
-    {type = "change-recipe-productivity", recipe = "casting-gold", change = 0.07},
-})
-
-data_util.tech_add_prerequisites("golden-science-pack", {"gold-smelting"})
 
 data_util.conditional_modify({
     type = "technology",
@@ -179,7 +169,6 @@ data_util.conditional_modify({
     icon = data.raw["technology"]["hyper-inserter"].icons[1].icon,
     icons = data_util.NIL,
 })
-
 
 for _,v in pairs({
     "aop-electromechanics",
