@@ -267,6 +267,9 @@ data_util.recipe_add_ingredient("solar-matrix", "silicon-cell", 6)
 data_util.recipe_add_ingredient("accumulator-v2", "magnet", 5)
 
 -- secretas
+data.raw["furnace"]["steam-recycler"].crafting_speed = 1
+data.raw["furnace"]["steam-recycler"].energy_source.fluid_box.filter = "steam"
+
 data_util.delete({name = "gold-railgun-turret", entity_type = "ammo-turret"})
 
 local golden_biter_egg_recipe = table.deepcopy(data.raw["recipe"]["golden-egg"])
