@@ -73,3 +73,5 @@ end
 data.raw["bool-setting"]["asteroid-belt-2-enabled"].default_value = true
 
 data.raw["bool-setting"]["moshine-long_stack_inserter"].default_value = false
+
+data.raw["bool-setting"]["require-rubia-for-endgame-planets"].default_value = false

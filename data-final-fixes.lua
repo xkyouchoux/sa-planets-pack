@@ -31,8 +31,13 @@ data_util.tech_add_ingredients_with_prerequisites("space-discovery-asteroid-belt
     "metallurgic-science-pack",
     "agricultural-science-pack",
     "electromagnetic-science-pack",
+})
+
+if settings.startup["require-rubia-for-endgame-planets"].value then
+    data_util.tech_add_ingredients_with_prerequisites("space-discovery-asteroid-belt", {
     "biorecycling-science-pack"
 }, {["biorecycling-science-pack"] = "rubia-project-trashdragon"})
+end
 
 for _,v in pairs({
     "planet-discovery-maraxsis",

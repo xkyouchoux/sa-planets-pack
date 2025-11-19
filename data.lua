@@ -110,6 +110,7 @@ change_subgroup({type = "tool", name = "electrochemical-science-pack"}, "science
 -- atan nuclear science
 
 -- muluna
+data.raw["item"]["muluna-telescope"].icons = nil
 
 -- cerys
 for _,recipe in pairs({
