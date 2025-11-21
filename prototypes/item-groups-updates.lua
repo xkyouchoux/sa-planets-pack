@@ -107,21 +107,9 @@ local data = {
     },
     {
         type = "item",
-        name = "muluna-steam-stone-furnace",
-        subgroup = "smelting-machine",
-        order = "a[furnace]-a[stone-furnace]-steam",
-    },
-    {
-        type = "item",
         name = "steel-furnace",
         subgroup = "smelting-machine",
         order = "a[furnace]-b[steel-furnace]",
-    },
-    {
-        type = "item",
-        name = "muluna-steam-steel-furnace",
-        subgroup = "smelting-machine",
-        order = "a[furnace]-b[steel-furnace]-steam",
     },
     {
         type = "item",
@@ -474,6 +462,23 @@ local data = {
         subgroup = "environmental-protection",
     },
 }
+
+if not settings.startup["muluna-hardcore-remove-steam-furnaces"].value then
+    table.insert(data, 
+    {
+        type = "item",
+        name = "muluna-steam-stone-furnace",
+        subgroup = "smelting-machine",
+        order = "a[furnace]-a[stone-furnace]-steam",
+    })
+    table.insert(data, 
+    {
+        type = "item",
+        name = "muluna-steam-steel-furnace",
+        subgroup = "smelting-machine",
+        order = "a[furnace]-b[steel-furnace]-steam",
+    })
+end
 
 for _,v in pairs(data) do
     data_util.conditional_modify(v)
