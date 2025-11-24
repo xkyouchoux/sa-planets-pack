@@ -82,6 +82,8 @@ data_util.tech_add_prerequisites("muluna-space-telescope", {
     "golden-science-pack"
 })
 
+data.raw["assembling-machine"]["muluna-vacuum-heating-tower"].energy_source.fuel_categories = table.deepcopy(data.raw["reactor"]["heating-tower"].energy_source.fuel_categories)
+
 -- cerys
 
 -- rubia
