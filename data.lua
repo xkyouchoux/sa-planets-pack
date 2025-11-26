@@ -105,6 +105,30 @@ change_subgroup({type = "tool", name = "electrochemical-science-pack"}, "science
 
 -- aai loaders
 
+-- aai signals
+if mods["aai-signal-transmission"] then
+    data_util.conditional_modify({
+        type = "roboport",
+        name = "aai-signal-sender",
+        surface_conditions = {
+            {
+                property = "gravity",
+                min = 0.1  -- Requires gravity (planets have gravity, space platforms don't)
+            }
+        }
+    })
+    data_util.conditional_modify({
+        type = "roboport",
+        name = "aai-signal-receiver",
+        surface_conditions = {
+            {
+                property = "gravity",
+                min = 0.1  -- Requires gravity (planets have gravity, space platforms don't)
+            }
+        }
+    })
+end
+
 -- extra storage tanks
 
 -- atan nuclear science
