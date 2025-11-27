@@ -129,8 +129,6 @@ data_util.tech_add_prerequisites("research-speed-infinite", {
 data.raw["technology"]["rocket-fuel-catalysis-productivity-infinite"] = nil
 
 -- moshine
-data_util.delete({name = "big-solar-panel", entity_type = "solar-panel", technology_name = "big-solar-energy"})
-data_util.delete({name = "big-accumulator", entity_type = "accumulator", technology_name = "electric-energy-big-accumulators"})
 
 -- pelagos
 
@@ -141,7 +139,7 @@ data.raw["assembling-machine"]["big-mining-drill-sand-extractor"].icons[2].icon 
 
 -- paracelsin
 
-data_util.tech_add_prerequisites("solar-matrix", {"moshine-tech-ai-tier-2"}) -- solar
+data_util.tech_add_prerequisites("solar-matrix", {"moshine-tech-ai-tier-6"}) -- solar
 data_util.tech_add_prerequisites("accumulator-v2", {"moshine-tech-ai-tier-6"}) -- accumulator
 
 -- secretas

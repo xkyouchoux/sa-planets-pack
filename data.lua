@@ -205,6 +205,19 @@ for _,recipe in pairs({
 end
 
 -- moshine
+data_util.recipe_replace_ingredient("big-solar-panel", "concrete", "concrete", 100)
+data_util.recipe_replace_ingredient("big-solar-panel", "solar-panel", "solar-panel", 15)
+data_util.conditional_modify({type = "solar-panel", name = "big-solar-panel", production = "900kW"})
+data_util.recipe_replace_ingredient("big-accumulator", "magnet", "magnet", 4)
+data_util.recipe_replace_ingredient("big-accumulator", "concrete", "concrete", 20)
+data_util.recipe_replace_ingredient("big-accumulator", "accumulator", "accumulator", 6)
+data_util.conditional_modify({type = "accumulator", name = "big-accumulator", energy_source = {
+    type = "electric",
+    usage_priority = "tertiary",
+    buffer_capacity = "30MJ",
+    input_flow_limit = "1.8MW",
+    output_flow_limit = "1.8MW",
+}})
 
 -- pelagos
 for _,recipe in pairs({
