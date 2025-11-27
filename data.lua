@@ -132,7 +132,6 @@ data_util.conditional_modify({
 -- atan nuclear science
 
 -- muluna
-data.raw["item"]["muluna-telescope"].icons = nil
 
 -- cerys
 for _,recipe in pairs({

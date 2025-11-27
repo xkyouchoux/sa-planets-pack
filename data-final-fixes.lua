@@ -82,8 +82,6 @@ data_util.tech_add_prerequisites("muluna-space-telescope", {
     "golden-science-pack"
 })
 
-data.raw["assembling-machine"]["muluna-vacuum-heating-tower"].energy_source.fuel_categories = table.deepcopy(data.raw["reactor"]["heating-tower"].energy_source.fuel_categories)
-
 -- cerys
 
 -- rubia
@@ -108,6 +106,10 @@ end
 
 data_util.tech_remove_prerequisites("rubia-cargo-landing-pad-capacity", {"promethium-science-pack"})
 data_util.tech_remove_ingredients("rubia-cargo-landing-pad-capacity", {"promethium-science-pack"})
+
+data_util.tech_add_effects("rubia-craptonite-circlet", {
+    {type = "change-recipe-productivity", recipe = "degradation-module", change = 0.1},
+})
 
 -- corrundum
 data_util.conditional_modify({
