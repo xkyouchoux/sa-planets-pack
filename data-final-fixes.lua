@@ -158,10 +158,6 @@ data_util.tech_add_effects("asteroid-productivity", {
     {type = "change-recipe-productivity", recipe = "auric-asteroid-crushing", change = 0.1},
 })
 
-data_util.tech_add_effects("transport-belt-capacity-3-Secretas", {
-    {type = "inserter-stack-size-bonus", modifier = 1},
-})
-
 data_util.conditional_modify({
     type = "technology",
     name = "steam-recycler",
