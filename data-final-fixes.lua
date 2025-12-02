@@ -218,6 +218,28 @@ data_util.conditional_modify({
     main_product = "gas-manipulation-science-pack",
 })
 
+for _,tech in pairs({
+    "planet-discovery-vesta",
+    "s2_fusion_enhancements",
+    "s2_plateworkings",
+    "transport-belt-capacity-vesta",
+    "worker-robots-storage-vesta",
+    "fusion-missile",
+    "s2_fusion_robots",
+    "ske_fusion_thruster",
+}) do
+    data_util.tech_add_ingredients(tech, {
+        "nuclear-science-pack",
+        "production-science-pack",
+        "utility-science-pack",
+        "interstellar-science-pack", 
+        "metallurgic-science-pack",
+        "agricultural-science-pack",
+        "electromagnetic-science-pack",
+        "cryogenic-science-pack",
+    })
+end
+
 -- age of production
 local function remove_aop_tech(tech_name, entity_type)
     for _,effect in pairs(data.raw["technology"][tech_name].effects) do
