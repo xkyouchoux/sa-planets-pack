@@ -39,12 +39,11 @@ if settings.startup["require-rubia-for-endgame-planets"].value then
 }, {["biorecycling-science-pack"] = "rubia-project-trashdragon"})
 end
 
-for _,v in pairs({
-    "planet-discovery-maraxsis",
-    "planet-discovery-paracelsin"
-}) do
-    data_util.tech_add_prerequisites(v, {"space-discovery-asteroid-belt"})
+if not settings.startup["redrawn-connections-maraxsis"].value then
+    data_util.tech_add_prerequisites("planet-discovery-maraxsis", {"space-discovery-asteroid-belt"})
 end
+
+data_util.tech_add_prerequisites("planet-discovery-paracelsin", {"space-discovery-asteroid-belt"})
 
 -- better-planets
 if mods["Better-Planets"] then
@@ -145,7 +144,11 @@ data_util.tech_add_prerequisites("solar-matrix", {"moshine-tech-ai-tier-6"}) -- 
 data_util.tech_add_prerequisites("accumulator-v2", {"moshine-tech-ai-tier-6"}) -- accumulator
 
 -- secretas
-data_util.tech_add_ingredients("planet-discovery-secretas", {"galvanization-science-pack"})
+
+if settings.startup["paracelsin-zinc-implementation"].value then
+    data_util.tech_add_ingredients("planet-discovery-secretas", {"galvanization-science-pack"})
+end
+
 data_util.tech_add_prerequisites("planet-discovery-secretas", {"railgun"})
 
 data_util.tech_add_prerequisites("golden-science-pack", {"steam-recycler"})
