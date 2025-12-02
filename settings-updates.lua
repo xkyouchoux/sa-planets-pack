@@ -70,7 +70,9 @@ if mods["Better-Planets"] then
     end
 end
 
-data.raw["bool-setting"]["asteroid-belt-2-enabled"].default_value = true
+if mods["AsteroidBelt"] then
+    data.raw["bool-setting"]["asteroid-belt-2-enabled"].default_value = true
+end
 
 data.raw["bool-setting"]["moshine-long_stack_inserter"].default_value = false
 

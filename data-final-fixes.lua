@@ -23,27 +23,29 @@ data_util.tech_add_prerequisites("research-productivity", {
 })
 
 -- asteroid belt
-data_util.tech_add_ingredients_with_prerequisites("space-discovery-asteroid-belt", {
-    "nuclear-science-pack",
-    "production-science-pack",
-    "utility-science-pack",
-    "interstellar-science-pack", 
-    "metallurgic-science-pack",
-    "agricultural-science-pack",
-    "electromagnetic-science-pack",
-})
-
-if settings.startup["require-rubia-for-endgame-planets"].value then
+if mods["AsteroidBelt"] then
     data_util.tech_add_ingredients_with_prerequisites("space-discovery-asteroid-belt", {
-    "biorecycling-science-pack"
-}, {["biorecycling-science-pack"] = "rubia-project-trashdragon"})
-end
+        "nuclear-science-pack",
+        "production-science-pack",
+        "utility-science-pack",
+        "interstellar-science-pack", 
+        "metallurgic-science-pack",
+        "agricultural-science-pack",
+        "electromagnetic-science-pack",
+    })
 
-if not settings.startup["redrawn-connections-maraxsis"].value then
-    data_util.tech_add_prerequisites("planet-discovery-maraxsis", {"space-discovery-asteroid-belt"})
-end
+    if not settings.startup["redrawn-connections-maraxsis"].value then
+        data_util.tech_add_prerequisites("planet-discovery-maraxsis", {"space-discovery-asteroid-belt"})
+    end
 
-data_util.tech_add_prerequisites("planet-discovery-paracelsin", {"space-discovery-asteroid-belt"})
+    if settings.startup["require-rubia-for-endgame-planets"].value then
+        data_util.tech_add_ingredients_with_prerequisites("space-discovery-asteroid-belt", {
+        "biorecycling-science-pack"
+    }, {["biorecycling-science-pack"] = "rubia-project-trashdragon"})
+    end
+
+    data_util.tech_add_prerequisites("planet-discovery-paracelsin", {"space-discovery-asteroid-belt"})
+end
 
 -- better-planets
 if mods["Better-Planets"] then
